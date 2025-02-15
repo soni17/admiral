@@ -66,3 +66,9 @@ Neutralino.events.on("windowClose", onWindowClose);
 if(NL_OS != "Darwin") { // TODO: Fix https://github.com/neutralinojs/neutralinojs/issues/615
     setTray();
 }
+
+Neutralino.os.execCommand('docker --version').then( (res) => {
+    let docker = res.stdOut.split(' ')[2];
+    docker = docker.substr(0,docker.length-1);
+    document.querySelector('#docker').innerText = docker;
+});
