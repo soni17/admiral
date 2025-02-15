@@ -1,20 +1,83 @@
-body {
-    background-color: white;
+/*---------reset-----------*/
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: geneva;
+}
+/*--------sidenav---------*/
+#sidenav {
+	background-color: #ebebeb;
+	width: 150px;
+	position: absolute;
+	height: 100%;
 }
 
-#neutralinoapp {
-    text-align: center;
-    -webkit-user-select: none;
-    user-select: none;
-    cursor: default;
+#sidenav a {
+	padding: 10px;
+	display: block;
+	border-bottom: 1px solid lightgrey;
+	font-size: 14px;
 }
 
-#neutralinoapp h1{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 20px;
+#sidenav a:hover {
+	background-color: #dcdcdc;
 }
 
-#neutralinoapp > div {
-    font-size: 16px;
-    font-weight: normal;
+.selected {
+	background-color: #5d8aa8;
+	color: white;
+}
+
+.dot {
+	height: 10px;
+	width: 10px;
+	background-color: green;
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+/*------content area---------*/
+#content {
+	padding-left: 175px;
+	padding-top: 20px;
+}
+
+/*------content sections-------*/
+section {
+	padding-bottom: 30px;
+}
+
+.header {
+	border-bottom: 1px solid lightgrey;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.info {
+	font-size: 15px;
+}
+
+.info p {
+	margin-top: 6px;
+}
+
+.run {
+	color: green;
+	font-weight: bold;
+}
+
+.data {
+	color: darkolivegreen;
+}
+
+.green {
+	color: green;
+}
+
+.table tr td {
+	border: 1px solid lightgrey;
 }
