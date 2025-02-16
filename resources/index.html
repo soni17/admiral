@@ -8,12 +8,12 @@
   <body>
 		<div id="sidenav">
       <img src="icons/docker.png" style="margin-top: 15px;margin-bottom: 15px;"/>
-			<a class="selected">Home</a>
-			<a>Containers</a>
-			<a>Images</a>
-			<a>Volumes</a>
-      <a>Network</a>
-      <a>Settings</a>
+			<a onclick=selNav(this) class="selected">Home</a>
+			<a onclick=selNav(this) >Containers</a>
+			<a onclick=selNav(this) >Images</a>
+			<a onclick=selNav(this) >Volumes</a>
+      <a onclick=selNav(this) >Network</a>
+      <a onclick=selNav(this) >Settings</a>
 		</div>
 		<div id="content">
       <p>Docker version: <span id="docker"></span></p>

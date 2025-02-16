@@ -75,7 +75,7 @@ Neutralino.os.execCommand('docker images --format json').then( (res) => {
 	}
 
 	let html =`
-	<table>
+	<table id="img-table">
 		<tr>
 			<th>Repository</th>
 			<th>Tag</th>
@@ -102,3 +102,9 @@ Neutralino.os.execCommand('docker images --format json').then( (res) => {
 	document.querySelector('#images').innerHTML = html ;
 
 });
+
+function selNav(el){
+	navs = document.querySelectorAll("#sidenav a");
+	navs.forEach( el => el.classList.remove('selected') );
+	el.classList.add('selected');
+}
