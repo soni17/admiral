@@ -1,13 +1,3 @@
-// This is just a sample app. You can structure your Neutralinojs app code as you wish.
-// This example app is written with vanilla JavaScript and HTML.
-// Feel free to use any frontend framework you like :)
-// See more details: https://neutralino.js.org/docs/how-to/use-a-frontend-library
-
-/*
-    Function to set up a system tray menu with options specific to the window mode.
-    This function checks if the application is running in window mode, and if so,
-    it defines the tray menu items and sets up the tray accordingly.
-*/
 function setTray() {
     // Tray menu is only available in window mode
     if(NL_MODE != "window") {
@@ -71,4 +61,44 @@ Neutralino.os.execCommand('docker --version').then( (res) => {
     let docker = res.stdOut.split(' ')[2];
     docker = docker.substr(0,docker.length-1);
     document.querySelector('#docker').innerText = docker;
+});
+
+Neutralino.os.execCommand('docker images --format json').then( (res) => {
+	let images = [];
+	let str = res.stdOut.split("\n");
+
+	for (let key in str) {
+		if (str[key].length != 0){
+			let img = JSON.parse(str[key]);
+			images.push(img);
+		}
+	}
+
+	let html =`
+	<table>
+		<tr>
+			<th>Repository</th>
+			<th>Tag</th>
+			<th>Image ID</th>
+			<th>Created</th>
+			<th>Size</th>
+		</tr>
+	`;
+
+	images.forEach( (img) => {
+		html = html + `
+			<tr>
+				<td>${img['Repository']}</td>
+				<td>${img['Tag']}</td>
+				<td>${img['ID']}</td>
+				<td>${img['CreatedSince']}</td>
+				<td>${img['Size']}</td>
+			</tr>
+		`;
+	});
+
+
+
+	document.querySelector('#images').innerHTML = html ;
+
 });
