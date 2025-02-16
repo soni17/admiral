@@ -63,45 +63,46 @@ Neutralino.os.execCommand('docker --version').then( (res) => {
     document.querySelector('#docker').innerText = docker;
 });
 
-Neutralino.os.execCommand('docker images --format json').then( (res) => {
-	let images = [];
-	let str = res.stdOut.split("\n");
+function dockerImages(){
+	Neutralino.os.execCommand('docker images --format json').then( (res) => {
+		let images = [];
+		let str = res.stdOut.split("\n");
 
-	for (let key in str) {
-		if (str[key].length != 0){
-			let img = JSON.parse(str[key]);
-			images.push(img);
+		for (let key in str) {
+			if (str[key].length != 0){
+				let img = JSON.parse(str[key]);
+				images.push(img);
+			}
 		}
-	}
 
-	let html =`
-	<table id="img-table">
-		<tr>
-			<th>Repository</th>
-			<th>Tag</th>
-			<th>Image ID</th>
-			<th>Created</th>
-			<th>Size</th>
-		</tr>
-	`;
-
-	images.forEach( (img) => {
-		html = html + `
+		let html =`
+		<table id="img-table">
 			<tr>
-				<td>${img['Repository']}</td>
-				<td>${img['Tag']}</td>
-				<td>${img['ID']}</td>
-				<td>${img['CreatedSince']}</td>
-				<td>${img['Size']}</td>
+				<th>Repository</th>
+				<th>Tag</th>
+				<th>Image ID</th>
+				<th>Created</th>
+				<th>Size</th>
 			</tr>
 		`;
+
+		images.forEach( (img) => {
+			html = html + `
+				<tr>
+					<td>${img['Repository']}</td>
+					<td>${img['Tag']}</td>
+					<td>${img['ID']}</td>
+					<td>${img['CreatedSince']}</td>
+					<td>${img['Size']}</td>
+				</tr>
+			`;
+		});
+
+		document.querySelector('#content').innerHTML = html ;
+
 	});
 
-
-
-	document.querySelector('#images').innerHTML = html ;
-
-});
+}
 
 function selNav(el){
 	navs = document.querySelectorAll("#sidenav a");
