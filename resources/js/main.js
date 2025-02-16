@@ -66,6 +66,15 @@ Neutralino.os.execCommand("docker --version").then((res) => {
 	document.querySelector("#docker").innerText = docker;
 });
 
+function selNav(el) {
+	navs = document.querySelectorAll("#sidenav a");
+	navs.forEach((el) => el.classList.remove("selected"));
+	el.classList.add("selected");
+}
+
+let imagesInterval;
+let containersInterval;
+
 function dockerImages() {
 	Neutralino.os.execCommand("docker images --format json").then((res) => {
 		let images = [];
@@ -107,12 +116,57 @@ function dockerImages() {
 	});
 }
 
-function imagesTab() {
-	setInterval(dockerImages, 5000);
+function imagesTab(el) {
+	selNav(el);
+	dockerImages();
+	clearInterval(containersInterval);
+	imagesInterval = setInterval(dockerImages, 5000);
 }
 
-function selNav(el) {
-	navs = document.querySelectorAll("#sidenav a");
-	navs.forEach((el) => el.classList.remove("selected"));
-	el.classList.add("selected");
+function dockerContainers(){
+	Neutralino.os.execCommand("docker ps --all --format json").then((res) => {
+		let images = [];
+		let str = res.stdOut.split("\n");
+
+		for (let key in str) {
+			if (str[key].length != 0) {
+				let img = JSON.parse(str[key]);
+				images.push(img);
+			}
+		}
+
+		let html = `
+		<table id="img-table">
+			<tr>
+				<th>Container ID</th>
+				<th>Image</th>
+				<th>State</th>
+				<th>Status</th>
+				<th>Names</th>
+			</tr>
+		`;
+
+		images.forEach((img) => {
+			html =
+				html +
+				`
+				<tr>
+					<td>${img["ID"]}</td>
+					<td>${img["Image"]}</td>
+					<td>${img["State"]}</td>
+					<td>${img["Status"]}</td>
+					<td>${img["Names"]}</td>
+				</tr>
+			`;
+		});
+
+		document.querySelector("#content").innerHTML = html;
+	});
+}
+
+function containersTab(el){
+	selNav(el);
+	dockerContainers();
+	clearInterval(imagesInterval);
+	containersInterval = setInterval(dockerContainers, 5000);
 }
