@@ -104,6 +104,11 @@ function dockerImages(){
 
 }
 
+
+function imagesTab(){
+    setInterval(dockerImages,5000);
+}
+
 function selNav(el){
 	navs = document.querySelectorAll("#sidenav a");
 	navs.forEach( el => el.classList.remove('selected') );
