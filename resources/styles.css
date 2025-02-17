@@ -7,7 +7,7 @@
 /*--------sidenav---------*/
 #sidenav {
 	background-color: #ebebeb;
-	width: 150px;
+	width: 120px;
 	position: absolute;
 	height: 100%;
 }
@@ -40,7 +40,7 @@
 
 /*------content area---------*/
 #content {
-	padding-left: 175px;
+	padding-left: 140px;
 	padding-top: 20px;
 }
 
@@ -102,6 +102,15 @@ section {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
+	font-size: 12px;
 	border: 0px;
   color: black;
+}
+
+.badge{
+	border-radius: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color:white;
+	color:green;
 }
