@@ -76,9 +76,6 @@ async function activeContainers(){
 	document.querySelector(".badge").innerText = active;
 }
 
-activeContainers();
-setInterval(activeContainers,5000);
-
 // Initialize Neutralino
 Neutralino.init();
 
@@ -91,3 +88,6 @@ if (NL_OS != "Darwin") {
 	// TODO: Fix https://github.com/neutralinojs/neutralinojs/issues/615
 	setTray();
 }
+
+activeContainers();
+setInterval(activeContainers,5000);
