@@ -1,14 +1,7 @@
 async function dockerContainers(){
 	let info = await Neutralino.os.execCommand('docker ps --all --format=json'); 
-	let str = info.stdOut.split("\n");
-	let containers = [];
-
-	for (let key in str) {
-		if (str[key].length != 0) {
-			let img = JSON.parse(str[key]);
-			containers.push(img);
-		}
-	}
+	let str = info.stdOut.replaceAll('}\n{' , '},{');
+	let containers = JSON.parse('[' + str + ']');
 
 	let html = `
 		<table id="img-table">

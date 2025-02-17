@@ -1,14 +1,7 @@
 async function dockerImages() {
 	let info = await Neutralino.os.execCommand('docker images --format=json'); 
-	let str = info.stdOut.split("\n");
-	let images = [];
-
-	for (let key in str) {
-		if (str[key].length != 0) {
-			let img = JSON.parse(str[key]);
-			images.push(img);
-		}
-	}
+	let str = info.stdOut.replaceAll('}\n{' , '},{');
+	let images = JSON.parse('[' + str + ']');
 
 	let html = `
 		<table id="img-table">

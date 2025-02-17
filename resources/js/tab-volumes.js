@@ -1,14 +1,7 @@
 async function dockerVolumes(){
 	let info = await Neutralino.os.execCommand('docker volume ls --format=json'); 
-	let str = info.stdOut.split("\n");
-	let volumes = [];
-
-	for (let key in str) {
-		if (str[key].length != 0) {
-			let img = JSON.parse(str[key]);
-			volumes.push(img);
-		}
-	}
+	let str = info.stdOut.replaceAll('}\n{' , '},{');
+	let volumes = JSON.parse('[' + str + ']');
 
 	let html = `
 		<table id="img-table">
