@@ -72,8 +72,12 @@ function selNav(el) {
 	el.classList.add("selected");
 }
 
-let imagesInterval;
-let containersInterval;
+let activeIntervals = [];
+
+function clearIntervals(){
+	activeIntervals.forEach(id => clearInterval(id));
+	activeIntervals = [];
+}
 
 function dockerImages() {
 	Neutralino.os.execCommand("docker images --format json").then((res) => {
@@ -119,8 +123,8 @@ function dockerImages() {
 function imagesTab(el) {
 	selNav(el);
 	dockerImages();
-	clearInterval(containersInterval);
-	imagesInterval = setInterval(dockerImages, 5000);
+	clearIntervals();
+	activeIntervals.push(setInterval(dockerImages, 5000));
 }
 
 function dockerContainers(){
@@ -167,6 +171,6 @@ function dockerContainers(){
 function containersTab(el){
 	selNav(el);
 	dockerContainers();
-	clearInterval(imagesInterval);
-	containersInterval = setInterval(dockerContainers, 5000);
+	clearIntervals();
+	activeIntervals.push(setInterval(dockerContainers, 5000));
 }
