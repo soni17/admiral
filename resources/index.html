@@ -8,11 +8,11 @@
   <body>
 		<div id="sidenav">
       <img src="icons/docker.png" style="margin-top: 15px;margin-bottom: 15px;"/>
-			<a onclick="selNav(this)" class="selected">Home</a>
+			<a onclick="homeTab(this)" class="selected">Home</a>
 			<a onclick="containersTab(this)" >Containers <span class="badge">2</span></a>
 			<a onclick="imagesTab(this)" >Images</a>
 			<a onclick="volumesTab(this)" >Volumes</a>
-      <a onclick="selNav(this)" >Settings</a>
+      <a onclick="settingsTab(this)" >Settings</a>
 		</div>
 		<div id="content">
       <p>Docker version: <span id="docker"></span></p>
@@ -23,9 +23,11 @@
         -->
     <script src="/js/neutralino.js"></script>
     <!-- Your app's source files -->
+    <script src="/js/tab-home.js"></script>
     <script src="/js/tab-containers.js"></script>
     <script src="/js/tab-images.js"></script>
     <script src="/js/tab-volumes.js"></script>
+    <script src="/js/tab-settings.js"></script>
     <script src="/js/main.js"></script>
   </body>
 </html>
