@@ -47,25 +47,6 @@ function onWindowClose() {
 	Neutralino.app.exit();
 }
 
-// Initialize Neutralino
-Neutralino.init();
-
-// Register event listeners
-Neutralino.events.on("trayMenuItemClicked", onTrayMenuItemClicked);
-Neutralino.events.on("windowClose", onWindowClose);
-
-// Conditional initialization: Set up system tray if not running on macOS
-if (NL_OS != "Darwin") {
-	// TODO: Fix https://github.com/neutralinojs/neutralinojs/issues/615
-	setTray();
-}
-
-Neutralino.os.execCommand("docker --version").then((res) => {
-	let docker = res.stdOut.split(" ")[2];
-	docker = docker.substr(0, docker.length - 1);
-	document.querySelector("#docker").innerText = docker;
-});
-
 function selNav(el) {
 	navs = document.querySelectorAll("#sidenav a");
 	navs.forEach((el) => el.classList.remove("selected"));
@@ -79,19 +60,32 @@ function clearIntervals(){
 	activeIntervals = [];
 }
 
-function dockerImages() {
-	Neutralino.os.execCommand("docker images --format json").then((res) => {
-		let images = [];
-		let str = res.stdOut.split("\n");
+// Initialize Neutralino
+Neutralino.init();
 
-		for (let key in str) {
-			if (str[key].length != 0) {
-				let img = JSON.parse(str[key]);
-				images.push(img);
-			}
+// Register event listeners
+Neutralino.events.on("trayMenuItemClicked", onTrayMenuItemClicked);
+Neutralino.events.on("windowClose", onWindowClose);
+
+// Conditional initialization: Set up system tray if not running on macOS
+if (NL_OS != "Darwin") {
+	// TODO: Fix https://github.com/neutralinojs/neutralinojs/issues/615
+	setTray();
+}
+
+async function dockerImages() {
+	let info = await Neutralino.os.execCommand('docker images --format json'); 
+	let str = info.stdOut.split("\n");
+	let images = [];
+
+	for (let key in str) {
+		if (str[key].length != 0) {
+			let img = JSON.parse(str[key]);
+			images.push(img);
 		}
+	}
 
-		let html = `
+	let html = `
 		<table id="img-table">
 			<tr>
 				<th>Repository</th>
@@ -99,25 +93,20 @@ function dockerImages() {
 				<th>Image ID</th>
 				<th>Created</th>
 				<th>Size</th>
-			</tr>
-		`;
+			</tr>`;
 
-		images.forEach((img) => {
-			html =
-				html +
-				`
-				<tr>
-					<td>${img["Repository"]}</td>
-					<td>${img["Tag"]}</td>
-					<td>${img["ID"]}</td>
-					<td>${img["CreatedSince"]}</td>
-					<td>${img["Size"]}</td>
-				</tr>
-			`;
-		});
-
-		document.querySelector("#content").innerHTML = html;
+	images.forEach((img) => {
+		html = html + `
+			<tr>
+				<td>${img["Repository"]}</td>
+				<td>${img["Tag"]}</td>
+				<td>${img["ID"]}</td>
+				<td>${img["CreatedSince"]}</td>
+				<td>${img["Size"]}</td>
+			</tr>`;
 	});
+
+	document.querySelector("#content").innerHTML = html;
 }
 
 function imagesTab(el) {
@@ -128,19 +117,19 @@ function imagesTab(el) {
 	activeIntervals.push(interval);
 }
 
-function dockerContainers(){
-	Neutralino.os.execCommand("docker ps --all --format json").then((res) => {
-		let images = [];
-		let str = res.stdOut.split("\n");
+async function dockerContainers(){
+	let info = await Neutralino.os.execCommand('docker ps --all --format json'); 
+	let str = info.stdOut.split("\n");
+	let containers = [];
 
-		for (let key in str) {
-			if (str[key].length != 0) {
-				let img = JSON.parse(str[key]);
-				images.push(img);
-			}
+	for (let key in str) {
+		if (str[key].length != 0) {
+			let img = JSON.parse(str[key]);
+			containers.push(img);
 		}
+	}
 
-		let html = `
+	let html = `
 		<table id="img-table">
 			<tr>
 				<th>Container ID</th>
@@ -148,25 +137,20 @@ function dockerContainers(){
 				<th>State</th>
 				<th>Status</th>
 				<th>Names</th>
-			</tr>
-		`;
+			</tr>`;
 
-		images.forEach((img) => {
-			html =
-				html +
-				`
-				<tr>
-					<td>${img["ID"]}</td>
-					<td>${img["Image"]}</td>
-					<td>${img["State"]}</td>
-					<td>${img["Status"]}</td>
-					<td>${img["Names"]}</td>
-				</tr>
-			`;
-		});
-
-		document.querySelector("#content").innerHTML = html;
+	containers.forEach((img) => {
+		html = html + `
+			<tr>
+				<td>${img["ID"]}</td>
+				<td>${img["Image"]}</td>
+				<td>${img["State"]}</td>
+				<td>${img["Status"]}</td>
+				<td>${img["Names"]}</td>
+			</tr>`;
 	});
+
+	document.querySelector("#content").innerHTML = html;
 }
 
 function containersTab(el){
@@ -177,43 +161,38 @@ function containersTab(el){
 	activeIntervals.push(interval);
 }
 
-function dockerVolumes(){
-	Neutralino.os.execCommand("docker volume ls --format json").then((res) => {
-		let images = [];
-		let str = res.stdOut.split("\n");
+async function dockerVolumes(){
+	let info = await Neutralino.os.execCommand('docker volume ls --format json'); 
+	let str = info.stdOut.split("\n");
+	let volumes = [];
 
-		for (let key in str) {
-			if (str[key].length != 0) {
-				let img = JSON.parse(str[key]);
-				images.push(img);
-			}
+	for (let key in str) {
+		if (str[key].length != 0) {
+			let img = JSON.parse(str[key]);
+			volumes.push(img);
 		}
+	}
 
-		let html = `
+	let html = `
 		<table id="img-table">
 			<tr>
 				<th>Name</th>
 				<th>Scope</th>
 				<th>Status</th>
 				<th>Size</th>
-			</tr>
-		`;
+			</tr>`;
 
-		images.forEach((img) => {
-			html =
-				html +
-				`
-				<tr>
-					<td>${img["Name"].substr(0,10)}</td>
-					<td>${img["Scope"]}</td>
-					<td>${img["Status"]}</td>
-					<td>${img["Size"]}</td>
-				</tr>
-			`;
-		});
-
-		document.querySelector("#content").innerHTML = html;
+	volumes.forEach((img) => {
+		html = html + `
+			<tr>
+				<td>${img["Name"].substr(0,10)}</td>
+				<td>${img["Scope"]}</td>
+				<td>${img["Status"]}</td>
+				<td>${img["Size"]}</td>
+			</tr>`;
 	});
+
+	document.querySelector("#content").innerHTML = html;
 }
 
 function volumesTab(el){
