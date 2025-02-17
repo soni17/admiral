@@ -124,7 +124,8 @@ function imagesTab(el) {
 	selNav(el);
 	dockerImages();
 	clearIntervals();
-	activeIntervals.push(setInterval(dockerImages, 5000));
+	interval = setInterval(dockerImages, 5000);
+	activeIntervals.push(interval);
 }
 
 function dockerContainers(){
@@ -172,5 +173,6 @@ function containersTab(el){
 	selNav(el);
 	dockerContainers();
 	clearIntervals();
-	activeIntervals.push(setInterval(dockerContainers, 5000));
+	interval = setInterval(dockerContainers, 5000);
+	activeIntervals.push(interval);
 }
