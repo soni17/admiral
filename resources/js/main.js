@@ -76,6 +76,7 @@ async function activeContainers(){
 	document.querySelector(".badge").innerText = active;
 }
 
+activeContainers();
 setInterval(activeContainers,5000);
 
 // Initialize Neutralino
