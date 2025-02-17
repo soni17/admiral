@@ -193,7 +193,7 @@ function dockerVolumes(){
 		<table id="img-table">
 			<tr>
 				<th>Name</th>
-				<th>Image</th>
+				<th>Scope</th>
 				<th>Status</th>
 				<th>Size</th>
 			</tr>
