@@ -29,10 +29,19 @@
 	color: white;
 }
 
-.dot {
+span[status="running"] {
 	height: 10px;
 	width: 10px;
 	background-color: green;
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+span[status="exited"] {
+	height: 10px;
+	width: 10px;
+	background-color: darkgrey;
 	border-radius: 50%;
 	display: inline-block;
 	margin-right: 5px;
@@ -86,7 +95,7 @@ section {
 #img-table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 700px;
+  width: 800px;
 }
 
 #img-table td, #img-table th {

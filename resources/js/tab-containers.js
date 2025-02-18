@@ -18,7 +18,7 @@ async function dockerContainers(){
 			<tr>
 				<td>${img["ID"]}</td>
 				<td>${img["Image"]}</td>
-				<td>${img["State"]}</td>
+				<td><span status="${img["State"]}"></span>${img["State"]}</td>
 				<td>${img["Status"]}</td>
 				<td>${img["Names"]}</td>
 			</tr>`;
