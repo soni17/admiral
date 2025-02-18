@@ -91,3 +91,5 @@ if (NL_OS != "Darwin") {
 
 activeContainers();
 setInterval(activeContainers,5000);
+
+//Neutralino.os.execCommand('mate-terminal -- bash -c "irb; exec bash"');

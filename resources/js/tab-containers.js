@@ -1,3 +1,19 @@
+function stopContainer(id){
+	Neutralino.os.execCommand(`docker stop ${id}`)
+}
+
+function startContainer(id){
+	Neutralino.os.execCommand(`docker start ${id}`)
+}
+
+function restartContainer(id){
+	Neutralino.os.execCommand(`docker restart ${id}`)
+}
+
+function deleteContainer(id){
+	Neutralino.os.execCommand(`docker rm ${id}`)
+}
+
 async function dockerContainers(){
 	let info = await Neutralino.os.execCommand('docker ps --all --format=json'); 
 	let str = info.stdOut.replaceAll('}\n{' , '},{');
@@ -25,10 +41,10 @@ async function dockerContainers(){
 						<div class="dd-button">Actions</div>
 						<input type="checkbox" class="dd-input">
 						<ul class="dd-menu">
-							<li>Stop</li>
-							<li>Start</li>
-							<li>Restart</li>
-							<li>Delete</li>
+							<li onclick="stopContainer('${img["ID"]}')">Stop</li>
+							<li onclick="startContainer('${img["ID"]}')">Start</li>
+							<li onclick="restartContainer('${img["ID"]}')">Restart</li>
+							<li onclick="deleteContainer('${img["ID"]}')">Delete</li>
 						</ul>		
 					</label>
 				</td>
