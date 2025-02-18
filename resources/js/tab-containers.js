@@ -10,6 +10,7 @@ async function dockerContainers(){
 				<th>Image</th>
 				<th>State</th>
 				<th>Status</th>
+				<th>Actions</th>
 			</tr>`;
 
 	containers.forEach((img) => {
@@ -19,6 +20,18 @@ async function dockerContainers(){
 				<td>${img["Image"]}</td>
 				<td><span status="${img["State"]}"></span>${img["State"]}</td>
 				<td>${img["Status"]}</td>
+				<td>
+					<label class="dropdown">
+						<div class="dd-button">Actions</div>
+						<input type="checkbox" class="dd-input">
+						<ul class="dd-menu">
+							<li>Stop</li>
+							<li>Start</li>
+							<li>Restart</li>
+							<li>Delete</li>
+						</ul>		
+					</label>
+				</td>
 			</tr>`;
 	});
 
