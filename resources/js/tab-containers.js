@@ -29,7 +29,6 @@ async function dockerContainers(){
 				<th>Container ID</th>
 				<th>Image</th>
 				<th>State</th>
-				<th>Status</th>
 				<th>Actions</th>
 			</tr>`;
 
@@ -39,7 +38,6 @@ async function dockerContainers(){
 				<td>${img["ID"]}</td>
 				<td>${img["Image"]}</td>
 				<td><span status="${img["State"]}"></span>${img["State"]}</td>
-				<td>${img["Status"]}</td>
 				<td>
 					<label class="dropdown">
 						<div class="dd-button">Actions</div>
@@ -50,7 +48,6 @@ async function dockerContainers(){
 							<li onclick="startContainer('${img["ID"]}')">Start</li>
 							<li onclick="restartContainer('${img["ID"]}')">Restart</li>
 							<li onclick="deleteContainer('${img["ID"]}')">Delete</li>
-		
 						</ul>		
 					</label>
 				</td>
