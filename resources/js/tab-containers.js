@@ -10,7 +10,6 @@ async function dockerContainers(){
 				<th>Image</th>
 				<th>State</th>
 				<th>Status</th>
-				<th>Names</th>
 			</tr>`;
 
 	containers.forEach((img) => {
@@ -20,7 +19,6 @@ async function dockerContainers(){
 				<td>${img["Image"]}</td>
 				<td><span status="${img["State"]}"></span>${img["State"]}</td>
 				<td>${img["Status"]}</td>
-				<td>${img["Names"]}</td>
 			</tr>`;
 	});
 
