@@ -1,17 +1,17 @@
 function stopContainer(id){
-	Neutralino.os.execCommand(`docker stop ${id}`)
+	Neutralino.os.execCommand(`docker stop ${id}`);
 }
 
 function startContainer(id){
-	Neutralino.os.execCommand(`docker start ${id}`)
+	Neutralino.os.execCommand(`docker start ${id}`);
 }
 
 function restartContainer(id){
-	Neutralino.os.execCommand(`docker restart ${id}`)
+	Neutralino.os.execCommand(`docker restart ${id}`);
 }
 
 function deleteContainer(id){
-	Neutralino.os.execCommand(`docker rm ${id}`)
+	Neutralino.os.execCommand(`docker rm ${id}`);
 }
 
 function openTerminal(id){
